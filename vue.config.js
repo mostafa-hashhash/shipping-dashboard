@@ -1,5 +1,4 @@
 module.exports = {
-  pluginOptions: {
-    publicPath: "/shipping-dashboard/",
-  },
+  publicPath:
+    process.env.NODE_ENV === "production" ? "/shipping-dashboard/" : "/",
 };
