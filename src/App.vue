@@ -86,7 +86,11 @@ export default {
   mounted: function () {
     this.isFetching = true;
 
-    fetch(`${process.env.VUE_APP_API_Data_URL}`)
+    fetch(
+      `https://api.allorigins.win/get?url=${encodeURIComponent(
+        process.env.VUE_APP_API_Data_URL
+      )}`
+    )
       .then((response) => response.json())
       .then((response) => {
         this.shipmentList = response;
