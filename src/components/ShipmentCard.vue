@@ -1,15 +1,16 @@
 <template>
-  <main class="mb-5 border-2 border-black bg-white flex justify-evenly">
+  <main class="border-2 border-black bg-white flex">
     <section
       class="
         grid grid-cols-1
-        lg:grid-cols-2
+        md:grid-cols-2
         gap-4
         p-5
         pl-3
         md:pl-6
         lg:pl-10
-        w-1/3
+        w-2/5
+        lg:w-1/3
       "
     >
       <InfoItem title="Commodity" :value="data.commodity" />
@@ -18,13 +19,13 @@
       <InfoItem title="Number of bids" :value="data.numberOfBids" />
     </section>
 
-    <section class="p-5 pl-10 border-l-2 border-black w-3/5 realtive">
+    <section class="p-5 pl-10 border-l-2 border-black w-3/5 lg:w-2/3 realtive">
       <div
         v-for="address in data.addresses"
         :key="address.key"
         class="Info relative pb-2"
       >
-        <h6>{{ address.name }}</h6>
+        <h6 class="text-sm sm:text-normal">{{ address.name }}</h6>
         {{ address.latitude.toFixed(4) }}, {{ address.longitude.toFixed(4) }}
       </div>
     </section>
@@ -49,7 +50,12 @@ export default {
 }
 
 .Info:not(:first-of-type)::after {
-  @apply bg-black w-1 h-12 block absolute -left-5 -top-9;
+  @apply bg-black w-1 block absolute -left-5;
+  height: 100%;
+  top: -80%;
   content: "";
+  @screen lg {
+    @apply h-12;
+  }
 }
 </style>
