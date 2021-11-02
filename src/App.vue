@@ -48,11 +48,14 @@
     <section class="w-full lg:w-3/4">
       <div
         class="flex items-center justify-center py-16"
-        v-show="!filteredShipmentList.length"
+        v-show="!filteredShipmentList.length && !isFetching"
       >
         <p class="text-red-600 text-xl">
           No Results are Matching The Filters Criteria
         </p>
+      </div>
+      <div v-show="isFetching" class="flex items-center justify-center py-16">
+        <p class="text-xl">Loading all shipment info ...</p>
       </div>
       <ShipmentCard
         v-for="(item, index) in filteredShipmentList"
@@ -93,7 +96,7 @@ export default {
     )
       .then((response) => response.json())
       .then((response) => {
-        this.shipmentList = response;
+        this.shipmentList = JSON.parse(response.contents);
         this.filteredShipmentList = this.shipmentList;
         this.isFetching = false;
       })
