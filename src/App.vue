@@ -28,8 +28,8 @@
         <option value="زجاج">Glass</option>
         <option value="رمل">Sand</option>
         <option value="سيراميك">Ceremic</option>
-        <option value="المنسوجات">crafts</option>
-        <option value="فلز">fliz</option>
+        <option value="المنسوجات">Textiles</option>
+        <option value="فلز">Metal</option>
       </select>
       <select
         name="vehicle-type"
@@ -40,9 +40,9 @@
         <option value="" selected disabled hidden>Vehicle Type</option>
         <option value="">All</option>
         <option value="سوزوكي">Suzuki</option>
-        <option value="جامبو مقفول">Jumpo closed</option>
-        <option value="دبابة">dababa</option>
-        <option value="دبابة مفتوح">dababa opened</option>
+        <option value="جامبو مقفول">Closed Jumbo Car</option>
+        <option value="دبابة">Tank Car</option>
+        <option value="دبابة مفتوح">Opened Tank Car</option>
       </select>
     </section>
     <section class="w-full lg:w-3/4">
