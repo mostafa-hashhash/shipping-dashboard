@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-col lg:flex-row justify-evenly p-10">
+  <main class="flex flex-col lg:flex-row justify-evenly p-5 md:p-10">
     <section
       class="
         w-full
@@ -46,8 +46,8 @@
       </select>
     </section>
 
-    <section class="w-full lg:w-3/4">
-      <section v-if="!isFetching">
+    <div class="w-full lg:w-3/4">
+      <section v-if="!isFetching && !hasError && filteredShipmentList.length">
         <ShipmentCard
           v-for="(item, index) in filteredShipmentList"
           :key="item.key"
@@ -55,30 +55,30 @@
           :class="[index ? 'mt-5' : '']"
         />
       </section>
-      <div v-else>
-        <div class="flex items-center justify-center py-16" v-show="hasError">
-          <p class="text-red-600 text-xl">
-            Error in fetching the shipment data
-          </p>
-        </div>
-        <div
-          class="flex items-center justify-center py-16"
-          v-show="!filteredShipmentList.length && !isFetching"
-        >
-          <p class="text-red-600 text-xl">
-            No Results are Matching The Filters Criteria
-          </p>
-        </div>
-        <div class="flex items-center justify-center py-16">
-          <p class="text-xl">Loading all shipment info ...</p>
-        </div>
-      </div>
-    </section>
+      <section v-else>
+        <Message v-if="isFetching">
+          <Spinner class="w-8 h-8 mr-10" />
+          Loading Shipment Details ...
+        </Message>
+        <Message
+          v-else-if="hasError"
+          :isError="true"
+          message="Error in fetching the shipment data"
+        />
+        <Message
+          v-else
+          :isError="true"
+          message="No Results are Matching The Filters Criteria"
+        />
+      </section>
+    </div>
   </main>
 </template>
 
 <script>
 import ShipmentCard from "@/components/ShipmentCard";
+import Message from "@/components/Message";
+import Spinner from "@/components/Spinner";
 import { defineComponent, ref, onMounted } from "@vue/runtime-core";
 import { getShipmentData } from "@/features/shipment";
 
@@ -87,6 +87,8 @@ export default defineComponent({
 
   components: {
     ShipmentCard,
+    Message,
+    Spinner,
   },
 
   setup() {

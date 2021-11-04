@@ -7,6 +7,7 @@ const hasError = ref(false);
 
 export function getShipmentData(commodity = "", vehicleType = "") {
   isFetching.value = true;
+  hasError.value = false;
 
   const filteredShipmentList = computed(() => {
     return shipmentList.value.filter((item) =>
