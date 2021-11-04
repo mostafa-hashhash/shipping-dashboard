@@ -16,34 +16,28 @@
         lg:mb-0
       "
     >
-      <select
-        name="commodity"
-        v-model="selectedCommodity"
-        @change="getShipmentData(selectedCommodity, selectedVehicleType)"
-        class="border-2 border-black bg-white p-2 my-2 w-full rounded-lg"
-      >
-        <option value="" selected disabled hidden>Commodity</option>
-        <option value="">All</option>
-        <option value="ورق">Paper</option>
-        <option value="زجاج">Glass</option>
-        <option value="رمل">Sand</option>
-        <option value="سيراميك">Ceremic</option>
-        <option value="المنسوجات">Textiles</option>
-        <option value="فلز">Metal</option>
-      </select>
-      <select
-        name="vehicle-type"
-        v-model="selectedVehicleType"
-        @change="getShipmentData(selectedCommodity, selectedVehicleType)"
-        class="border-2 border-black bg-white p-2 my-2 w-full rounded-lg"
-      >
-        <option value="" selected disabled hidden>Vehicle Type</option>
-        <option value="">All</option>
-        <option value="سوزوكي">Suzuki</option>
-        <option value="جامبو مقفول">Closed Jumbo Car</option>
-        <option value="دبابة">Tank Car</option>
-        <option value="دبابة مفتوح">Opened Tank Car</option>
-      </select>
+      <SelectMenu
+        title="Commodity"
+        :options="commodityOptions"
+        @update="
+          ($event) => {
+            selectedCommodity = $event;
+            getShipmentData(selectedCommodity, selectedVehicleType);
+          }
+        "
+        :modelValue="selectedCommodity"
+      />
+      <SelectMenu
+        title="Vehicle Type"
+        :options="vehicleTypeOptions"
+        @update="
+          ($event) => {
+            selectedVehicleType = $event;
+            getShipmentData(selectedCommodity, selectedVehicleType);
+          }
+        "
+        :modelValue="selectedVehicleType"
+      />
     </section>
 
     <div class="w-full lg:w-3/4">
@@ -77,6 +71,7 @@
 
 <script>
 import ShipmentCard from "@/components/ShipmentCard";
+import SelectMenu from "@/components/SelectMenu";
 import Message from "@/components/Message";
 import Spinner from "@/components/Spinner";
 import { defineComponent, ref, onMounted } from "@vue/runtime-core";
@@ -89,6 +84,7 @@ export default defineComponent({
     ShipmentCard,
     Message,
     Spinner,
+    SelectMenu,
   },
 
   setup() {
@@ -100,16 +96,40 @@ export default defineComponent({
       selectedVehicleType
     );
 
+    const commodityOptions = [
+      { value: "ورق", title: "Paper" },
+      { value: "زجاج", title: "Glass" },
+      { value: "رمل", title: "Sand" },
+      { value: "سيراميك", title: "Ceremic" },
+      { value: "المنسوجات", title: "Textiles" },
+      { value: "فلز", title: "Metal" },
+    ];
+
+    const vehicleTypeOptions = [
+      { value: "سوزوكي", title: "Suzuki" },
+      { value: "جامبو مقفول", title: "Closed Jumbo Car" },
+      { value: "دبابة", title: "Tank Car" },
+      { value: "دبابة مفتوح", title: "Opened Tank Car" },
+    ];
+
     onMounted(() => {
       getShipmentData();
     });
+
+    function filterList(e) {
+      console.log(e);
+      getShipmentData(selectedCommodity, selectedVehicleType);
+    }
 
     return {
       getShipmentData,
       isFetching,
       hasError,
+      filterList,
       filteredShipmentList,
       selectedVehicleType,
+      commodityOptions,
+      vehicleTypeOptions,
       selectedCommodity,
     };
   },
