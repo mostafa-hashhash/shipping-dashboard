@@ -8,22 +8,27 @@ You can see the deployed app on github pages [here!](https://mostafa-hashhash.gi
 
 ## Project setup
 ```
-yarn install
+npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
+npm run build
 ```
 
 ### Lints and fixes files
 ```
-yarn lint
+npm run lint
+```
+
+### Unit Tests
+```
+npm run test:unit
 ```
 
 ### Customize configuration
